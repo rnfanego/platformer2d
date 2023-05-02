@@ -134,3 +134,16 @@ label_settings = ExtResource("4_sktxk")
 layout_mode = 2
 text = "0"
 label_settings = ExtResource("4_sktxk")
+
+[node name="RaycastDmg" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="RaycastDmg"]
+target_position = Vector2(0, 24)
+
+[node name="RayCast2D2" type="RayCast2D" parent="RaycastDmg"]
+position = Vector2(7, 0)
+target_position = Vector2(0, 24)
+
+[node name="RayCast2D3" type="RayCast2D" parent="RaycastDmg"]
+position = Vector2(-6, 0)
+target_position = Vector2(0, 24)
