@@ -11,6 +11,8 @@ size = Vector2(22, 23.5)
 size = Vector2(24, 25)
 
 [node name="enemigoCerdito" groups=["Enemigos"] instance=ExtResource("1_5xq36")]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("2_rry0l")
 
 [node name="Sprite2D" parent="." index="0"]
@@ -26,9 +28,11 @@ shape = SubResource("RectangleShape2D_b3wnb")
 
 [node name="RayCastSuelo" type="RayCast2D" parent="RayCasts" index="0"]
 target_position = Vector2(0, 20)
+collision_mask = 4
 
 [node name="RayCastMuro" type="RayCast2D" parent="RayCasts" index="1"]
 target_position = Vector2(-20, 0)
+collision_mask = 4
 
 [node name="RayTimer" type="Timer" parent="RayCasts" index="2"]
 wait_time = 0.1
@@ -41,6 +45,7 @@ target_position = Vector2(-50, 0)
 one_shot = true
 
 [node name="dmgPlayer" type="Area2D" parent="." index="4"]
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="dmgPlayer" index="0"]
 position = Vector2(0, 0.5)

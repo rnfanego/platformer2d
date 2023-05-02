@@ -3,3 +3,4 @@ class_name Personajes
 
 var speed := 0
 var vida := 1
+var damage := 1

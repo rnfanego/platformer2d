@@ -81,4 +81,4 @@ func _on_player_detector_timer_timeout():
 
 func _on_dmg_player_body_entered(body):
 	if body is Player:
-		body.takeDmg()
+		body.takeDmg(damage)

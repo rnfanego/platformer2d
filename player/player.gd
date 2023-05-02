@@ -1,21 +1,34 @@
 extends CharacterBody2D
 class_name Player
 
+@onready var anim := $AnimationPlayer
+@onready var sprite := $Sprite2D
+@onready var frutaslabel := $PlayerGUI/HBoxContainer/frutaslabel
+@onready var raycastDmg = $RaycastDmg
+@onready var hpBar = $PlayerGUI/HPProgressBar
+
 var speed := 120
 var direccion := 0.0
 var damage := 1
 const jump := 250
 const gravity := 9
 
-@onready var anim := $AnimationPlayer
-@onready var sprite := $Sprite2D
-@onready var frutaslabel := $PlayerGUI/HBoxContainer/frutaslabel
-@onready var raycastDmg = $RaycastDmg
+enum estados {NORMAL,HERIDO}
+var estadoActual = estados.NORMAL
+
+var vida := 10 :
+	set(val):
+		vida = val
+		hpBar.value = vida
 
 func _ready():
 	Global.player = self
 
 func _physics_process(delta):
+	if estadoActual == estados.NORMAL:
+		processNormal()
+
+func processNormal():
 	direccion = Input.get_axis("ui_left","ui_right")
 	velocity.x = direccion * speed
 	
@@ -44,5 +57,17 @@ func _process(delta):
 func actualizaInterfazFrutas():
 	frutaslabel.text = str(Global.frutas)
 	
-func takeDmg():
-	get_tree().reload_current_scene()
+func takeDmg(damage):
+	if estadoActual != estados.HERIDO:
+		vida -= damage
+		anim.play("hurt")
+		estadoActual = estados.HERIDO
+		print(vida)
+		if vida <= 0:
+			get_tree().reload_current_scene()
+
+
+func _on_animation_player_animation_finished(anim_name):
+	match anim_name:
+		"hurt":
+			estadoActual = estados.NORMAL
