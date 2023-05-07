@@ -6,6 +6,8 @@ class_name Player
 @onready var frutaslabel := $PlayerGUI/HBoxContainer/frutaslabel
 @onready var raycastDmg = $RaycastDmg
 @onready var hpBar = $PlayerGUI/HPProgressBar
+@onready var audioJump = $AudioJump
+@onready var audioHurt = $AudioHurt
 
 var speed := 120
 var direccion := 0.0
@@ -43,6 +45,7 @@ func processNormal():
 		velocity.y += gravity
 		
 	if is_on_floor() and Input.is_action_just_pressed("ui_accept"):
+		audioJump.play()
 		velocity.y -= jump
 	move_and_slide()
 
@@ -59,10 +62,10 @@ func actualizaInterfazFrutas():
 	
 func takeDmg(damage):
 	if estadoActual != estados.HERIDO:
+		audioHurt.play()
 		vida -= damage
 		anim.play("hurt")
 		estadoActual = estados.HERIDO
-		print(vida)
 		if vida <= 0:
 			get_tree().reload_current_scene()
 
