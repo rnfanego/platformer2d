@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0i0a0s1ord1e"]
+
+[ext_resource type="Script" path="res://Trampas/sierra.gd" id="1_atno3"]
+[ext_resource type="Texture2D" uid="uid://5yqlida7hamy" path="res://Assets_PixelAdventure/Traps/Saw/Off.png" id="1_kb0oo"]
+[ext_resource type="PackedScene" uid="uid://euygwbikevax" path="res://Trampas/dmg_player.tscn" id="3_s644t"]
+
+[node name="Sierra" type="Node2D"]
+script = ExtResource("1_atno3")
+speed = null
+
+[node name="SierraVerdadera" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite2D" parent="SierraVerdadera"]
+position = Vector2(-1, 0)
+texture = ExtResource("1_kb0oo")
+
+[node name="dmgPlayer" parent="SierraVerdadera" instance=ExtResource("3_s644t")]
+position = Vector2(-1, 0)
+
+[node name="Path2D" type="Path2D" parent="."]
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+
+[connection signal="body_entered" from="SierraVerdadera/dmgPlayer" to="." method="_on_dmg_player_body_entered"]

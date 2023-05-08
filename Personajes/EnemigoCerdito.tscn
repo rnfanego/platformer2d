@@ -3,12 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://bu2qhq7dcpp8k" path="res://Personajes/personajes.tscn" id="1_5xq36"]
 [ext_resource type="Texture2D" uid="uid://qh4778c8molj" path="res://Assets_PixelAdventure/Enemies/AngryPig/angryPig.png" id="2_60j0l"]
 [ext_resource type="Script" path="res://Personajes/EnemigoCerdito.gd" id="2_rry0l"]
+[ext_resource type="PackedScene" uid="uid://euygwbikevax" path="res://Trampas/dmg_player.tscn" id="4_5o25x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b3wnb"]
 size = Vector2(22, 23.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a1gqs"]
-size = Vector2(24, 25)
 
 [node name="enemigoCerdito" groups=["Enemigos"] instance=ExtResource("1_5xq36")]
 collision_layer = 2
@@ -44,13 +42,7 @@ target_position = Vector2(-50, 0)
 [node name="PlayerDetectorTimer" type="Timer" parent="RayCasts" index="4"]
 one_shot = true
 
-[node name="dmgPlayer" type="Area2D" parent="." index="4"]
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="dmgPlayer" index="0"]
-position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_a1gqs")
+[node name="dmgPlayer" parent="." index="4" instance=ExtResource("4_5o25x")]
 
 [connection signal="timeout" from="RayCasts/RayTimer" to="." method="_on_ray_timer_timeout"]
 [connection signal="timeout" from="RayCasts/PlayerDetectorTimer" to="." method="_on_player_detector_timer_timeout"]
-[connection signal="body_entered" from="dmgPlayer" to="." method="_on_dmg_player_body_entered"]

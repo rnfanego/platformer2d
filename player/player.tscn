@@ -130,6 +130,14 @@ corner_radius_bottom_left = 5
 collision_mask = 6
 script = ExtResource("1_f132h")
 
+[node name="StateMachine" type="Node" parent="."]
+
+[node name="Idle" type="Node" parent="StateMachine"]
+
+[node name="Moving" type="Node" parent="StateMachine"]
+
+[node name="Air" type="Node" parent="StateMachine"]
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_402fs")
 hframes = 11

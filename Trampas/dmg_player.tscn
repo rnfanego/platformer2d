@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://euygwbikevax"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a1gqs"]
+size = Vector2(24, 25)
+
+[node name="dmgPlayer" type="Area2D"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_a1gqs")
