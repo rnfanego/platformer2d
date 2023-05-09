@@ -1,14 +1,21 @@
 extends PlayerState
 
 @onready var audioJump = $"../../AudioJump"
+@onready var coyoteTimer = $CoyoteTimer
+@onready var jump_buffer_timer = $JumpBufferTimer
+
+var hasJumped = false
 
 func state_enter_state(msg := {}):
 	if msg.has("Salto"):
+		hasJumped = true
 		audioJump.play()
 		anim_player.play("jump")
 		player.numSaltos -= 1
 		player.velocity.y = -player.jump
 	else:
+		hasJumped = false
+		coyoteTimer.start()
 		anim_player.play("fall")
 
 func state_physics_process(delta):
@@ -21,7 +28,14 @@ func state_physics_process(delta):
 	player.move_and_slide()
 	
 	if player.is_on_floor():
-		state_machine.transition_to("Idle")
 		player.numSaltos = player.maxSaltos
-	elif Input.is_action_just_pressed("ui_accept") and player.numSaltos > 0:
+		hasJumped = false
+		if jump_buffer_timer.is_stopped():
+			state_machine.transition_to("Idle")
+		else:
+			jump_buffer_timer.stop()
+			state_machine.transition_to("Air", {Salto = true})
+	elif (hasJumped or !coyoteTimer.is_stopped()) and Input.is_action_just_pressed("ui_accept") and player.numSaltos > 0:
 		state_machine.transition_to("Air", {Salto = true})
+	elif Input.is_action_just_pressed("ui_accept"):
+		jump_buffer_timer.start()

@@ -150,6 +150,14 @@ anim_player_path = NodePath("../../AnimationPlayer")
 script = ExtResource("5_f7tv1")
 anim_player_path = NodePath("../../AnimationPlayer")
 
+[node name="CoyoteTimer" type="Timer" parent="StateMachine/Air"]
+wait_time = 0.2
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="StateMachine/Air"]
+wait_time = 0.1
+one_shot = true
+
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_402fs")
 hframes = 11
