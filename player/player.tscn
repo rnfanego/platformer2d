@@ -1,9 +1,13 @@
-[gd_scene load_steps=17 format=3 uid="uid://dom8lbueyrn7q"]
+[gd_scene load_steps=21 format=3 uid="uid://dom8lbueyrn7q"]
 
 [ext_resource type="Texture2D" uid="uid://bei7x67psb4c4" path="res://Assets_PixelAdventure/Main Characters/Mask Dude.png" id="1_402fs"]
 [ext_resource type="Script" path="res://player/player.gd" id="1_f132h"]
+[ext_resource type="Script" path="res://player/StateMachine/stateMachine.gd" id="2_tyxga"]
 [ext_resource type="Script" path="res://player/Camera2D.gd" id="3_a1yn1"]
+[ext_resource type="Script" path="res://player/Idle.gd" id="3_so01q"]
+[ext_resource type="Script" path="res://player/Moving.gd" id="4_5620e"]
 [ext_resource type="LabelSettings" uid="uid://blsomihi2cupe" path="res://player/GUItext.tres" id="4_sktxk"]
+[ext_resource type="Script" path="res://player/Air.gd" id="5_f7tv1"]
 [ext_resource type="StyleBox" uid="uid://b3llqn35veewf" path="res://player/HPBarStyle.tres" id="5_pgxt0"]
 [ext_resource type="AudioStream" uid="uid://ba2hxqf376lg" path="res://Assets_PixelAdventure/Sounds/Jump.ogg" id="6_6foqu"]
 [ext_resource type="AudioStream" uid="uid://bk01bmd5p2v58" path="res://Assets_PixelAdventure/Sounds/Hit.ogg" id="7_fqp8t"]
@@ -131,12 +135,20 @@ collision_mask = 6
 script = ExtResource("1_f132h")
 
 [node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_tyxga")
+estado_inicial = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("3_so01q")
+anim_player_path = NodePath("../../AnimationPlayer")
 
 [node name="Moving" type="Node" parent="StateMachine"]
+script = ExtResource("4_5620e")
+anim_player_path = NodePath("../../AnimationPlayer")
 
 [node name="Air" type="Node" parent="StateMachine"]
+script = ExtResource("5_f7tv1")
+anim_player_path = NodePath("../../AnimationPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_402fs")

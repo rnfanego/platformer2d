@@ -46,3 +46,4 @@ one_shot = true
 
 [connection signal="timeout" from="RayCasts/RayTimer" to="." method="_on_ray_timer_timeout"]
 [connection signal="timeout" from="RayCasts/PlayerDetectorTimer" to="." method="_on_player_detector_timer_timeout"]
+[connection signal="body_entered" from="dmgPlayer" to="." method="_on_dmg_player_body_entered"]
