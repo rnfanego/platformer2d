@@ -35,7 +35,11 @@ func state_physics_process(delta):
 		else:
 			jump_buffer_timer.stop()
 			state_machine.transition_to("Air", {Salto = true})
+	elif player.is_on_wall():
+		state_machine.transition_to("WallSlide")
 	elif (hasJumped or !coyoteTimer.is_stopped()) and Input.is_action_just_pressed("ui_accept") and player.numSaltos > 0:
 		state_machine.transition_to("Air", {Salto = true})
+	elif Input.is_action_just_pressed("dash") and player.canDash:
+		state_machine.transition_to("Dash")
 	elif Input.is_action_just_pressed("ui_accept"):
 		jump_buffer_timer.start()

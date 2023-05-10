@@ -9,6 +9,7 @@ var speed := 120
 var direccion := 0.0
 var damage := 1
 var numSaltos := maxSaltos
+var canDash := true
 
 @onready var anim := $AnimationPlayer
 @onready var sprite := $Sprite2D
@@ -32,6 +33,8 @@ func _process(delta):
 			if collision.is_in_group("Enemigos"):
 				if collision.has_method("takeDmg"):
 					collision.takeDmg(damage)
+	if is_on_floor():
+		canDash = true
 #
 func actualizaInterfazFrutas():
 	frutaslabel.text = str(Global.frutas)
@@ -40,5 +43,6 @@ func takeDmg(damage):
 	audioHurt.play()
 	vida -= damage
 	anim.play("hurt")
+	velocity.y = -jump*0.7
 	if vida <= 0:
 		get_tree().reload_current_scene()
