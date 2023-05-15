@@ -25,7 +25,9 @@ var vida := 10 :
 		hpBar.value = vida
 
 func _ready():
+	#await (Global._ready())
 	Global.player = self
+	print(Global.vidas)
 	gui_animation_player.play("TransitionAnim")
 #
 func _process(delta):
@@ -50,6 +52,9 @@ func takeDmg(damage):
 		die()
 
 func die():
+	Global.vidas -= 1
+	Save.game_data.VidasJugador = Global.vidas
+	Save.save_data()
 	transitionToScene(get_tree().current_scene.scene_file_path)
 	
 func transitionToScene(scene):
