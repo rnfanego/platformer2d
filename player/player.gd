@@ -17,6 +17,7 @@ var canDash := true
 @onready var raycastDmg = $RaycastDmg
 @onready var hpBar = $PlayerGUI/HPProgressBar
 @onready var audioHurt = $AudioHurt
+@onready var gui_animation_player = $PlayerGUI/GUIAnimationPlayer
 
 var vida := 10 :
 	set(val):
@@ -25,6 +26,7 @@ var vida := 10 :
 
 func _ready():
 	Global.player = self
+	gui_animation_player.play("TransitionAnim")
 #
 func _process(delta):
 	for ray in raycastDmg.get_children():
@@ -45,4 +47,16 @@ func takeDmg(damage):
 	anim.play("hurt")
 	velocity.y = -jump*0.7
 	if vida <= 0:
-		get_tree().reload_current_scene()
+		die()
+
+func die():
+	transitionToScene(get_tree().current_scene.scene_file_path)
+	
+func transitionToScene(scene):
+	gui_animation_player.play_backwards("TransitionAnim")
+	get_tree().paused = true
+	await (gui_animation_player.animation_finished)
+	get_tree().paused = false
+	get_tree().change_scene_to_file(scene)
+	
+	
